@@ -13,7 +13,7 @@ import (
 	"github.com/rodaine/table"
 )
 
-//go:embed layer.csv
+//go:embed ncnn_layer.csv
 var layerData string
 
 func main() {

@@ -11,7 +11,7 @@ AllDict = {}
 
 def get_layer_name():
     # 获取当前目录路径
-    current_path = os.getcwd() + "/ncnn/src/layer"
+    current_path = os.getcwd() + "/src/layer"
     # 获取当前目录下的所有文件名
     file_names = os.listdir(current_path)
     # 打开文件
@@ -29,7 +29,7 @@ def get_layer_name():
                 result = re.search("class (\\w+)", str(f.readlines()))
                 AllDict[layer_name][0] = result.group(1)
     # 处理arm目录下的文件
-    file_names = os.listdir(current_path + '/arm')
+    file_names = os.listdir(current_path + "/arm")
     for file_name in file_names:
         # 如果文件名是以.h结尾的
         if file_name.endswith("_arm.h"):
@@ -37,7 +37,7 @@ def get_layer_name():
             layer_name = file_name.replace("_arm.h", "")
             AllDict[layer_name][1][0] = 1  # 代表arm架构第一个为真
     # 处理loongarch
-    file_names = os.listdir(current_path + '/loongarch')
+    file_names = os.listdir(current_path + "/loongarch")
     for file_name in file_names:
         # 如果文件名是以.h结尾的
         if file_name.endswith("_loongarch.h"):
@@ -45,7 +45,7 @@ def get_layer_name():
             layer_name = file_name.replace("_loongarch.h", "")
             AllDict[layer_name][1][1] = 1  # 代表arm架构第一个为真
     # 处理mips目录下的文件
-    file_names = os.listdir(current_path + '/mips')
+    file_names = os.listdir(current_path + "/mips")
     for file_name in file_names:
         # 如果文件名是以.h结尾的
         if file_name.endswith("_mips.h"):
@@ -53,7 +53,7 @@ def get_layer_name():
             layer_name = file_name.replace("_mips.h", "")
             AllDict[layer_name][1][2] = 1  # 代表arm架构第一个为真
     # 处理riscv目录下的文件
-    file_names = os.listdir(current_path + '/riscv')
+    file_names = os.listdir(current_path + "/riscv")
     for file_name in file_names:
         # 如果文件名是以.h结尾的
         if file_name.endswith("_riscv.h"):
@@ -61,7 +61,7 @@ def get_layer_name():
             layer_name = file_name.replace("_riscv.h", "")
             AllDict[layer_name][1][3] = 1  # 代表arm架构第一个为真
     # 处理vulkan目录下的文件
-    file_names = os.listdir(current_path + '/vulkan')
+    file_names = os.listdir(current_path + "/vulkan")
     for file_name in file_names:
         # 如果文件名是以.h结尾的
         if file_name.endswith("_vulkan.h"):
@@ -69,21 +69,25 @@ def get_layer_name():
             layer_name = file_name.replace("_vulkan.h", "")
             AllDict[layer_name][1][4] = 1  # 代表arm架构第一个为真
     # 处理x86目录下的文件
-    file_names = os.listdir(current_path + '/x86')
+    file_names = os.listdir(current_path + "/x86")
     for file_name in file_names:
         # 如果文件名是以.h结尾的
         if file_name.endswith("_x86.h"):
             # 将文件名转换为layer层
             layer_name = file_name.replace("_x86.h", "")
             AllDict[layer_name][1][5] = 1  # 代表arm架构第一个为真
+    # 白名单操作
+    AllDict["split"] = ["Split", [1, 1, 1, 1, 1, 1]]  # split层全支持
     print(AllDict)
 
     # 遍历字典，写入csv文件
-    with open("layer.csv", "w", encoding="utf-8") as f:
+    with open("ncnn_layer.csv", "w", encoding="utf-8") as f:
         f.write(f"Layer,arm,loongarch,mips,riscv,vulkan,x86\n")
         for key, value in AllDict.items():
             # 格式化输出
-            f.write(f"{value[0]},{value[1][0]},{value[1][1]},{value[1][2]},{value[1][3]},{value[1][4]},{value[1][5]}\n")
+            f.write(
+                f"{value[0]},{value[1][0]},{value[1][1]},{value[1][2]},{value[1][3]},{value[1][4]},{value[1][5]}\n"
+            )
 
 
 if __name__ == "__main__":

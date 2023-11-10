@@ -1,6 +1,6 @@
 # NCNNINFO
 
-快速查看ncnn模型文件的算子优化程度
+快速查看 ncnn 模型文件的算子优化程度
 
 `Useage: ncnninfo ncnn.param`
 
@@ -9,6 +9,10 @@
 ## Download
 
 https://github.com/Baiyuetribe/ncnninfo/releases
+
+## Update
+
+- 用 rust 重构，体积缩小 5 倍，支持 Windows、Mac、Linux 等
 
 ## References
 

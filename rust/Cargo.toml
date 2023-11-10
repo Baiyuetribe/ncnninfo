@@ -1,0 +1,15 @@
+[package]
+name = "ncnninfo"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+colored = "2.0.4"
+
+# 这部分优化，可以大幅缩减安装包体积
+[profile.release]
+lto = true
+opt-level = 3
+codegen-units = 1
